@@ -25,6 +25,8 @@ fortranobject_dep = declare_dependency(
   include_directories: [inc_np, inc_f2py],
 )
 
+numpy_nodepr_api = '-DNPY_NO_DEPRECATED_API=NPY_1_9_API_VERSION'
+
 
 # link and compile fortran code
 fortran_module = custom_target('fortran_code',
@@ -34,6 +36,7 @@ fortran_module = custom_target('fortran_code',
 )
 py.extension_module('fortran_code',
     ['fortran_code.f90', fortran_module],
+    c_args : numpy_nodepr_api,
     include_directories : inc_np,
     dependencies : fortranobject_dep,
     link_language : 'fortran',
