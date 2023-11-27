@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import numpy as np
-import fortran_code
+import test_meson.fortran_code as fc
 
 def square(x):
     result = x**2
@@ -11,8 +11,10 @@ def numpy_square(x):
     return result
 
 def fortran_square(x):
-    result = fortran_code.fortra_code.fast_square(x)
+    result = fc.fortran_code.fast_square(x)
     return result
 
 if __name__=="__main__":
-    pass
+    print(square(2.0))
+    print(numpy_square(2.0))
+    print(fortran_square(2.0))
