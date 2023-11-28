@@ -1,13 +1,9 @@
-data_sources = [
-    'data.dat'
-]
+# find all *dat files
+data_sources = run_command(py,
+    ['-c', 'import glob; import os; files = glob.glob("./*dat"); names = [os.path.basename(f) for f in files]; print(*names, sep=" ")']
+).stdout().strip().split(' ')
 
-files = run_command(py,
-    ['-c', 'import glob; import os; cwd = os.getcwd(); files = glob.glob("./*dat"); print([os.path.basename(f) for f in files])']
-).stdout().strip()
-
-message(files)
-
+# install *dat files
 py.install_sources(
     data_sources,
     subdir : 'test_meson/data'
