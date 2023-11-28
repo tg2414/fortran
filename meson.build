@@ -1,6 +1,6 @@
 project('test_meson', 'c',
     version : '0.1',
-    default_options : ['warning_level=everything']
+    default_options : ['warning_level=1']
 )
 
 cc = meson.get_compiler('c')
@@ -19,7 +19,6 @@ ff = meson.get_compiler('fortran')
 if ff.has_argument('-Wno-conversion')
   add_project_arguments('-Wno-conversion', language: 'fortran')
 endif
-
 
 py_mod = import('python')
 py = py_mod.find_installation(pure: false)

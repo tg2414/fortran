@@ -48,18 +48,11 @@ py.extension_module('fortran_code',
 # python sources
 python_sources = [
     '__init__.py',
-    'main.py'
+    'main.py',
+    'data/data.dat'
 ]
 
 py.install_sources(
     python_sources,
     subdir : 'test_meson'
 )
-
-# message(get_option('datadir'))
-# message(get_option('prefix'))
-
-# install_data('data/data.dat')
-subdir('data')
-# install_subdir('data', install_dir : get_option('datadir'))
-# install_subdir('data', install_dir : 'data')
