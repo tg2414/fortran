@@ -1,1 +1,0 @@
-test meson build system with fortran code
