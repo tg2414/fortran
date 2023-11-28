@@ -55,3 +55,11 @@ py.install_sources(
     python_sources,
     subdir : 'test_meson'
 )
+
+# message(get_option('datadir'))
+# message(get_option('prefix'))
+
+# install_data('data/data.dat')
+subdir('data')
+# install_subdir('data', install_dir : get_option('datadir'))
+# install_subdir('data', install_dir : 'data')

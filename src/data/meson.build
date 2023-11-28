@@ -1,0 +1,1 @@
+install_data('data.dat', install_dir : 'data')
