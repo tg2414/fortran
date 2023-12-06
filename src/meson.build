@@ -27,23 +27,44 @@ fortranobject_dep = declare_dependency(
 
 numpy_nodepr_api = '-DNPY_NO_DEPRECATED_API=NPY_1_9_API_VERSION'
 
+# works
+# # link and compile fortran code
+# fortran_module = custom_target('fortran_code',
+#   input: 'fortran_source_code/fortran_code.f90',
+#   output : ['fortran_codemodule.c', 'fortran_code-f2pywrappers2.f90'],
+#   command : [py, '-m', 'numpy.f2py', '-m', 'fortran_code', '@INPUT@', '--build-dir', '@OUTDIR@']
+# )
+# py.extension_module('fortran_code',
+#     ['fortran_source_code/fortran_code.f90', fortran_module],
+#     c_args : numpy_nodepr_api,
+#     include_directories : inc_np,
+#     dependencies : fortranobject_dep,
+#     link_language : 'fortran',
+#     install : true,
+#     subdir : 'test_meson'
+# )
+
+# combine fortran files
+fortran_src = [
+  'fortran_source_code/fortran_code.f90',
+  'fortran_source_code/fortran_code2.f90'
+]
 
 # link and compile fortran code
-fortran_module = custom_target('fortran_code',
-  input: 'fortran_code.f90',
-  output : ['fortran_codemodule.c', 'fortran_code-f2pywrappers2.f90'],
-  command : [py, '-m', 'numpy.f2py', '-m', 'fortran_code', '@INPUT@', '--build-dir', '@OUTDIR@']
+fortran_module = custom_target('fortran_code_bundle',
+  input: fortran_src,
+  output : ['fortran_code_bundlemodule.c', 'fortran_code_bundle-f2pywrappers2.f90'],
+  command : [py, '-m', 'numpy.f2py', '-m', 'fortran_code_bundle', '@INPUT@', '--build-dir', '@OUTDIR@']
 )
-py.extension_module('fortran_code',
-    ['fortran_code.f90', fortran_module],
+py.extension_module('fortran_code_bundle',
+    [['fortran_source_code/fortran_code.f90','fortran_source_code/fortran_code2.f90'], fortran_module],
     c_args : numpy_nodepr_api,
     include_directories : inc_np,
     dependencies : fortranobject_dep,
     link_language : 'fortran',
     install : true,
-    subdir : 'test_meson'
+    subdir : 'fortran_code_sub_directory'
 )
-
 
 # python sources
 python_sources = [
@@ -53,7 +74,9 @@ python_sources = [
 
 py.install_sources(
     python_sources,
-    subdir : 'test_meson'
+    subdir : 'python_code_sub_directory'
 )
 
+# look inside these directories for more meson.build files 
 subdir('data')
+subdir('new_code')

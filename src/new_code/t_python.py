@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import numpy as np
-import fortran_code_sub_directory.fortran_code_bundle as fc
+import t_fortran_package.t_fortran_module as fc
 import importlib.resources as resources
 from pathlib import Path
 
-DATADIR = Path.joinpath(resources.files("python_code_sub_directory"), "data")
+# DATADIR = Path.joinpath(resources.files("t_python_package"))
 
 def square(x):
     result = x**2
@@ -15,8 +15,8 @@ def numpy_square(x):
     return result
 
 def fortran_square(x):
-    result = fc.fortran_code.fast_square(x)
-    return result
+    result, n_threads = fc.fortran_code.fast_square(x)
+    return result, n_threads
 
 def fortran_cube(x):
     result = fc.fortran_code2.fast_cube(x)

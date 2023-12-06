@@ -12,6 +12,10 @@ _global_c_args = cc.get_supported_arguments(
   '-Wno-misleading-indentation',
 )
 add_project_arguments(_global_c_args, language : 'c')
+add_project_link_arguments(['-lgomp'], language: ['c', 'cpp', 'fortran'])
+
+gcc_link_args = ['-lucrt', '-static']
+add_project_link_arguments(gcc_link_args, language: ['c', 'cpp', 'fortran'])
 
 
 add_languages('fortran', native: false)

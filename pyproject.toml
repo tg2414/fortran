@@ -9,9 +9,15 @@ description = "example python project with fortran code and meson build system."
 authors = [
     {name = "Johann Mattiat", email = "johann.mattiat@gmail.com"}
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 readme = "README.rst"
 license = {file = "UNLICENSE"}
 dependencies = [
+    "meson-python",
     "numpy"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pip-tools",
 ]
